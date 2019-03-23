@@ -1,6 +1,8 @@
 import java.util.*;
+import java.io.*;
+import java.math.*;
 
-public class CarteEnergie extends Carte{
+public class CarteEnergie extends Carte implements Serializable {
     private String typeEnergie;
 
     public CarteEnergie(){
@@ -16,10 +18,8 @@ public class CarteEnergie extends Carte{
 	    System.out.println("Pour une energie de type Psy, tapez 5");
 	    System.out.println("Pour une energie de type Combat, tapez 6");
 	    System.out.println("Pour une energie de type Obscurite, tapez 7");
-	    System.out.println("Pour une energie de type Metal, tapez 8");
-	    System.out.println("Pour une energie de type Fee, tapez 9");
-	    System.out.println("Pour une energie de type Dragon, tapez 10");
-	    System.out.println("Pour une energie de type Incolore, tapez 11");
+	    System.out.println("Pour une energie de type Fee, tapez 8");      
+	    System.out.println("Pour une energie de type Incolore, tapez 9");
 	    saisie = sc.nextInt();
 	    switch(saisie){
 	    case 1:
@@ -44,19 +44,13 @@ public class CarteEnergie extends Carte{
 		this.typeEnergie="Obscurite";
 		break;
 	    case 8:
-		this.typeEnergie="Metal";
-		break;
-	    case 9:
 		this.typeEnergie="Fee";
 		break;
-	    case 10:
-		this.typeEnergie="Dragon";
-		break;
-	    case 11:
+	    case 9:
 		this.typeEnergie="Incolore";
 		break;	
 	    default :
-		System.out.println("Vous devez tapez un nombre compris entre 1 et 11");
+		System.out.println("Vous devez tapez un nombre compris entre 1 et 9");
 	    }
 	}while(typeEnergie=="indefini");
     }
@@ -75,7 +69,7 @@ public class CarteEnergie extends Carte{
     }
 
     public String toString(){
-	return super.toString()+", Type d'energie : "+typeEnergie;
+	return super.toString()+" Type d'energie : "+typeEnergie;
     }
 }
 

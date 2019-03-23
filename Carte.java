@@ -1,11 +1,15 @@
 import java.util.*;
+import java.io.*;
+import java.math.*;
 
-public class Carte{
+public class Carte implements Serializable{
     private String typeCarte;
+    private int numeroCarteDeck;
     
     public Carte(){
         Scanner sc = new Scanner(System.in);
 	int saisie;
+	this.numeroCarteDeck=0;
 	this.typeCarte="indefini";
 	do{
 	    System.out.println("Tapez le numero du type de Carte souhaitee : ");
@@ -31,6 +35,7 @@ public class Carte{
 
     public Carte(String tc){
 	this.typeCarte=tc;
+	this.numeroCarteDeck=0;
     }
 
     public String getTypeCarte(){
@@ -41,7 +46,16 @@ public class Carte{
 	typeCarte=tc;
     }
 
+    public int getNumeroCarteDeck(){
+	return this.numeroCarteDeck;
+    }
+
+    public void setNumeroCarteDeck(int ncd){
+	this.numeroCarteDeck=ncd;
+    }
+
     public String toString(){
-	return "Type de Carte : "+typeCarte;
+	return "Type de Carte : "+typeCarte+" | "+
+	    "numero de Carte dans le deck : "+numeroCarteDeck+" | ";
     }
 }
