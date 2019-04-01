@@ -35,6 +35,7 @@ public class CarteDresseur extends Carte implements Serializable{
 	    }
 	}while(this.typeDresseur=="indefini");
 
+	sc.nextLine();
 	System.out.println("Entrez l'extension de la carte");
         this.extensionCarte=sc.nextLine();
 	System.out.println("Entrez le numero de la carte");

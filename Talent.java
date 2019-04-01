@@ -22,7 +22,7 @@ public class Talent implements Serializable{
 	return nomTalent;
     }
 
-    public void setTalent(String nt){
+    public void setNomTalent(String nt){
 	this.nomTalent=nt;
     }
 

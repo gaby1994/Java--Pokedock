@@ -102,10 +102,8 @@ public class CartePokemon extends Carte implements Serializable{
 	this.typeResistancePokemon=sc.nextLine();
 	System.out.println("Entrez la valeur de la Resistance du Pokemon");
 	this.valeurResistancePokemon=sc.nextLine();
-	sc.nextInt();
 	System.out.println("Entrez la valeur du point de retraite du Pokemon");
-	this.pointRetraite=sc.nextInt();
-	sc.nextLine();	    
+	this.pointRetraite=sc.nextInt();    
 	System.out.println("Entrez les attaques");
 	this.attaque=new Attaque[3];
 	Attaque a1=new Attaque();	
@@ -182,6 +180,14 @@ public class CartePokemon extends Carte implements Serializable{
 	this.nomPokemon=noP;
     }
 
+    public String getDescription(){
+	return description;
+    }
+
+    public void setDescription(String d){
+	this.description=d;
+    }
+
     public int getNiveauPokemon(){
 	return niveauPokemon;
     }
@@ -215,7 +221,7 @@ public class CartePokemon extends Carte implements Serializable{
     }
 
     public String getValeurFaiblessePokemon(){
-	return this.valeurResistancePokemon;
+	return this.valeurFaiblessePokemon;
     }
 
     public void setValeurFaiblessePokemon(String vfp){
@@ -223,14 +229,14 @@ public class CartePokemon extends Carte implements Serializable{
     }
 
     public String getTypeResistancePokemon(){
-	return this.typeFaiblessePokemon;
+	return this.typeResistancePokemon;
     }
 
     public void setTypeResistancePokemon(String trp){
-	this.typeFaiblessePokemon=trp;
+	this.typeResistancePokemon=trp;
     }
 
-    public String getValeuResistancePokemon(){
+    public String getValeurResistancePokemon(){
 	return this.valeurResistancePokemon;
     }
 
@@ -244,6 +250,14 @@ public class CartePokemon extends Carte implements Serializable{
 
     public void setPointRetraite(int pr){
 	this.pointRetraite=pr;
+    }
+    
+    public Talent getTalent(){
+    return talent;
+    }
+    
+    public void setTalent(Talent t){
+    this.talent=t;
     }
 
     public void ajouterAttaque(Attaque a){
