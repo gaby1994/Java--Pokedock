@@ -12,7 +12,8 @@ public class Talent implements Serializable{
 	System.out.println("Entrez la description du talent");
 	this.descriptionTalent=sc.nextLine();
     }
-    
+
+    //classe testee dans une classe de test    
     public Talent(String nt,String dt){
 	this.nomTalent=nt;
 	this.descriptionTalent=dt;
@@ -35,6 +36,7 @@ public class Talent implements Serializable{
     }
 
     public String toString(){
-	return "nom Talent : "+nomTalent+" description : "+descriptionTalent;
+	return "nom Talent : "+nomTalent+"\n"+
+	    "               description : "+descriptionTalent;
     }
 }

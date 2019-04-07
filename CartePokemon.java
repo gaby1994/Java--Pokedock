@@ -21,7 +21,8 @@ public class CartePokemon extends Carte implements Serializable{
     private int nbAttaques;
  
 
-    public CartePokemon(){
+    public CartePokemon(String tc){
+	super(tc);
 	Scanner sc = new Scanner(System.in);
 	int saisie;
 	this.typePokemon="indefini";
@@ -127,7 +128,8 @@ public class CartePokemon extends Carte implements Serializable{
 	}
 	talent=new Talent();
     }
-    
+
+    //classe testee dans une classe de test
     public CartePokemon(String tc,String tp,String ec,String nc,String noP,String d,int niP,String ne,int pvP,String tfp,String vfp,String trp,String vrp,int pr,Talent t){
 	super(tc);
 	this.typePokemon=tp;
@@ -146,7 +148,7 @@ public class CartePokemon extends Carte implements Serializable{
 	this.talent=t;
 	this.attaque=new Attaque[3];
 	this.nbAttaques=0;
-    }
+	}
 
     public String getTypePokemon(){
 	return typePokemon;
@@ -260,6 +262,7 @@ public class CartePokemon extends Carte implements Serializable{
     this.talent=t;
     }
 
+    //ajout d'une attaque dans le tableau attaque
     public void ajouterAttaque(Attaque a){
 	if(nbAttaques<3){
 	    attaque[nbAttaques]=a;
@@ -268,26 +271,30 @@ public class CartePokemon extends Carte implements Serializable{
     }
 
     public String toString(){
-        String s=super.toString()+"type de Pokemon : "+this.typePokemon+" | "+
-	    "extension de la Carte : "+this.extensionCarte+" | "+
-	    "numero de la Carte : "+this.numeroCarte+" | "+
-	    "nom du Pokemon : "+this.nomPokemon+" | "+
-	    "description : "+this.description+" | "+
-	    "niveau du Pokemon : "+this.niveauPokemon+" | "+
-	    "nom de l'evolution : "+this.nomEvolution+" | "+
-	    "pv du Pokemon : "+this.pvPokemon+" | "+
-	    "type de faiblesse : "+this.typeFaiblessePokemon+" | "+
-	    "valeur de la faiblesse : "+this.valeurFaiblessePokemon+" | "+
-	    "type de resistance : "+this.typeResistancePokemon+" | "+
-	    "valeur de la resistance : "+this.valeurResistancePokemon+" | "+
-	    "point de retraite : "+this.pointRetraite+" | "+
-	    "talent : "+talent.toString()+" | ";
-	String attaques="(";
-	for(int i=0;i<attaque.length-1;i++){
-	    attaques=attaques+attaque[i]+", ";
+        String s=super.toString()+"      type de Pokemon : "+this.typePokemon+"\n"+
+	    "      extension de la Carte : "+this.extensionCarte+"\n"+
+	    "      numero de la Carte : "+this.numeroCarte+"\n"+
+	    "      nom du Pokemon : "+this.nomPokemon+"\n"+
+	    "      description : "+this.description+"\n"+
+	    "      niveau du Pokemon : "+this.niveauPokemon+"\n"+
+	    "      nom de l'evolution : "+this.nomEvolution+"\n"+
+	    "      pv du Pokemon : "+this.pvPokemon+"\n"+
+	    "      type de faiblesse : "+this.typeFaiblessePokemon+"\n"+
+	    "      valeur de la faiblesse : "+this.valeurFaiblessePokemon+"\n"+
+	    "      type de resistance : "+this.typeResistancePokemon+"\n"+
+	    "      valeur de la resistance : "+this.valeurResistancePokemon+"\n"+
+	    "      point de retraite : "+this.pointRetraite+"\n"+
+	    "      talent : "+talent.toString()+"\n";
+	String attaques="      ";
+	
+	attaques="      (";/*+attaque[0];*/
+	for(int i=0;i<nbAttaques;i++){
+	    if(attaque[i]!=null){
+		attaques=attaques+",\n       "+attaque[i];
+	    }
 	}
-	attaques=attaques+attaque[attaque.length-1]+")";
-	s=s+attaques;
+	//attaques=attaques+"      "+attaque[attaque.length-1]+")";
+	s=s+attaques+")";
 	return s;
     }
     

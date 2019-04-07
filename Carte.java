@@ -5,7 +5,14 @@ import java.math.*;
 public class Carte implements Serializable{
     private String typeCarte;
     private int numeroCarteDeck;
-    
+   
+ 
+
+    public Carte(String tc){
+	this.typeCarte=tc;
+	this.numeroCarteDeck=0;
+    }
+
     public Carte(){
         Scanner sc = new Scanner(System.in);
 	int saisie;
@@ -33,11 +40,6 @@ public class Carte implements Serializable{
 	}while(typeCarte=="indefini");
     }
 
-    public Carte(String tc){
-	this.typeCarte=tc;
-	this.numeroCarteDeck=0;
-    }
-
     public String getTypeCarte(){
 	return typeCarte;
     }
@@ -54,8 +56,14 @@ public class Carte implements Serializable{
 	this.numeroCarteDeck=ncd;
     }
 
-    public String toString(){
+    /*public String toString(){
 	return "Type de Carte : "+typeCarte+" | "+
 	    "numero de Carte dans le deck : "+numeroCarteDeck+" | ";
+	    }*/
+
+    public String toString(){
+	return "Carte numero "+numeroCarteDeck+"\n"
+	    +"*************\n"
+	    +"Carte "+typeCarte+"\n";
     }
 }

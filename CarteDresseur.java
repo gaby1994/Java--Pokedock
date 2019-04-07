@@ -10,7 +10,8 @@ public class CarteDresseur extends Carte implements Serializable{
     private String regleDresseur;
     private String texteDresseur;
 
-    public CarteDresseur(){
+    public CarteDresseur(String tc){
+	super(tc);
 	Scanner sc = new Scanner(System.in);
 	int saisie;
 	this.typeDresseur="indefini";
@@ -48,6 +49,7 @@ public class CarteDresseur extends Carte implements Serializable{
         this.texteDresseur=sc.nextLine();
     }
 
+    //classe testee dans une classe de test
     public CarteDresseur(String tc,String tyD,String ec,String nc,String nd,String rd,String td){
 	super(tc);
 	this.typeDresseur=tyD;
@@ -94,25 +96,25 @@ public class CarteDresseur extends Carte implements Serializable{
 	return texteDresseur;
     }
 
-    public void setRegleDresseur(String rd){
-	this.regleDresseur=rd;
-    }
-
     public void setTexteDresseur(String td){
 	this.texteDresseur=td;
     }
-
+         
     public String getRegleDresseur(){
 	return texteDresseur;
     }
 
+    public void setRegleDresseur(String rd){
+	this.regleDresseur=rd;
+    }
+    
     public String toString(){
-	return super.toString()+"type de Dresseur : "+this.typeDresseur+" | "+
-	    "extension de la carte : "+this.extensionCarte+" | "+
-	    "numero de la carte : "+this.numeroCarte+" | "+
-	    "nom du Dresseur : "+this.nomDresseur+" | "+
-	    "regle du Dresseur : "+this.regleDresseur+"| "+
-	    "texte du Dresseur : "+this.texteDresseur;
+	return super.toString()+"      type de Dresseur : "+this.typeDresseur+"\n"+
+	    "      extension de la carte : "+this.extensionCarte+"\n"+
+	    "      numero de la carte : "+this.numeroCarte+"\n"+
+	    "      nom du Dresseur : "+this.nomDresseur+"\n"+
+	    "      regle du Dresseur : "+this.regleDresseur+"\n"+
+	    "      texte du Dresseur : "+this.texteDresseur;
     }
 }
 

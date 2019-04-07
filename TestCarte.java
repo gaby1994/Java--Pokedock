@@ -1,4 +1,5 @@
 import java.io.*;
+import java.util.*;
 
 public class TestCarte implements Serializable{
     public static void main(String[] args){
@@ -9,19 +10,15 @@ public class TestCarte implements Serializable{
 	d.ajouterCarte(c2);
 	Talent t3=new Talent("","");
 	CartePokemon c3=new CartePokemon("Pokemon","Psy","XY Rupture Turbo","50/122","Soporifik","Si vous pensez avoir reve mais que vous ne vous souvenez pas, c'est que Soporifick a tout mange",0,"",70,"Psy","Psy x2","","",2,t3);
-	Attaque a3_1=new Attaque("Murmure","","Psy",1,0,10);
+	Attaque a3_1=new Attaque("Murmure","Psy",1,0,10," ");
 	c3.ajouterAttaque(a3_1);
-	Attaque a3_2=new Attaque("Voeu Fervent","Lancez une piece. Si c'est face, cette attaque inflige 20 degats supplementaires","Psy",0,2,10);
+	Attaque a3_2=new Attaque("Voeu Fervent","Psy",0,2,10,"Lancez une piece. Si c'est face, cette attaque inflige 20 degats supplementaires");
 	c3.ajouterAttaque(a3_2);
         d.ajouterCarte(c3);
 	System.out.println(d);
 	System.out.println("\nApres melange\n");
 	d.melange();
 	System.out.println(d);
-	System.out.println("\nEcriture\n");
-	d.ecritureFichier();
-	System.out.println("\nLecture\n");
-	d.lectureFichier();
 	d.rechercherCarte();
     }
 }

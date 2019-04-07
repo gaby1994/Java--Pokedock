@@ -6,45 +6,54 @@ public class Deck implements Serializable{
     private ArrayList<Carte> d;
     private int cpt;
     private final int TAILLE=60;
-    private FileOutputStream fos;
-    private ObjectOutputStream oos;
-    private String nomFichier;
-
+  
+    //initialisation du scanner
+    Scanner sc=new Scanner(System.in);
+    
+    //creation du deck
     public Deck(){
 	d=new ArrayList<Carte>();
-	Scanner sc=new Scanner(System.in);
-	System.out.println("Entrez le nom du fichier");
-	nomFichier=sc.nextLine();
 	cpt=0;
-	// ouverture d'un flux de sortie vers le fichier "nomFichier"
-	try{
-	    fos = new FileOutputStream(nomFichier);
-	    oos= new ObjectOutputStream(fos);
-	} catch(IOException ioe) {
-	    ioe.printStackTrace();
-	}
     }
-
+    
+    //ajout d'une carte dans le Deck, tant qu'on ne depasse pas 60 cartes
+    //en entree : une classe Carte
+    //en sortie : rien
     public void ajouterCarte(Carte c){
-	if(d.size()<TAILLE){
-	    cpt++;
-	    c.setNumeroCarteDeck(cpt);
-	    d.add(c);
-	}
+	if(d.size()<TAILLE){	
+	d.add(c);
+	cpt++;
+	c.setNumeroCarteDeck(cpt);
+	}	
     }
 
-    public void retirerCarte(int i){
-	d.remove(i);
+    //suppression de la carte en haut de la pile du Deck
+    //en entree : rien
+    //en sortie : rien
+    public void retirerCarte(){
+	d.remove(d.get(d.size()-1));
+	cpt--;
     }
 
+    //acces a une carte dans le Deck : methode utilisee pour balayer le deck dans la fonction sauvegarde
+    //en entree : un int i representant l'indice de la carte dans le deck (indice de l'arrayList)
+    //en sortie : la carte d'indice i
     public Carte getCarte(int i){
 	return d.get(i);
     }
 
+    //recherche d'une carte dans le Deck sur plusieurs criteres dependant du type de Carte
+    //Carte energie : un seul critere possible (type)
+    //Carte dresseur : deux criteres possibles (nom du dresseur ou numero de la Carte)
+    //Carte pokemon : deux criteres possibles (nom du pokemon ou numero de la Carte)
+    //en entree : rien
+    //en sortie : une liste avec les numeros de cartes dans le deck correspondant aux cartes recherchees
     public void rechercherCarte(){
 	int saisie;
 	String te,nd,np,nc,td,tp;
+	//initialisation du scanner
 	Scanner sc = new Scanner(System.in);
+	//arrayList d'entiers pour stocker les numeros de carte trouvees , correspondantes aux criteres de recherche
 	ArrayList<Integer> res=new ArrayList<Integer>();
 
 	//Saisie du nombre determinant le type de Carte
@@ -58,9 +67,9 @@ public class Deck implements Serializable{
 
 	sc.nextLine();
 
-	//Choix des critères de recherche
+	//Choix des criteres de recherche
 	if(saisie == 1){
-	    System.out.println("Entrez un type d'energie");
+	    System.out.println("Entrez le type d'energie recherche");
 	    te=sc.nextLine();
 	    for(int i=0;i<d.size();i++){
 		if(d.get(i).getTypeCarte()=="Energie"){
@@ -72,9 +81,9 @@ public class Deck implements Serializable{
 	    }
 	}else{
 	    if(saisie == 2){
-		System.out.println("Entrez un nom de dresseur");
+		System.out.println("Entrez le nom du dresseur recherche");
 		td=sc.nextLine();
-		System.out.println("Entrez un numero de carte");
+		System.out.println("Entrez le numero de carte recherche");
 		nc=sc.nextLine();
 		for(int i=0;i<d.size();i++){
 		    if(d.get(i).getTypeCarte()=="Dresseur"){
@@ -102,52 +111,60 @@ public class Deck implements Serializable{
 	}
 	
 	if(res.size()>0){
-	    System.out.println("Voici les numeros des cartes dans le deck correspondant aux critères recherchés : ");
+	    System.out.println("Voici les numeros des cartes dans le deck correspondant aux criteres recherches : ");
 	    for(int i=0;i<res.size();i++){
 		System.out.println(res.get(i));
 	    }
 	}else{
-	    System.out.println("Aucune carte ne correspond aux critères recherchés");
+	    System.out.println("Aucune carte ne correspond aux criteres recherches");
 	}
     }
 
-    //taille de la liste
+    //taille de la liste : methode utilisee pour fournir la taille de la liste de carte contenue dans l'objet "deck" a la methode sauvegarde
+    //entree : rien
+    //sortie : int
     public int taille(){
 	return d.size();
     }
 
-    //ajout d'une carte interactive
+    //ajout d'une carte interactive : selection du type de carte puis appel a la fonction ajouterCarte
+    //entree : rien
+    //sortie : rien
     public void ajouterCarteInteractive(){
+	int typeSouhaite;
+	Scanner sc=new Scanner(System.in);
+
 	System.out.println("Quel type de carte voulez-vous ?");
 	System.out.println("Pour une Carte Dresseur, tapez 1");
 	System.out.println("Pour une Carte Energie, tapez 2");
 	System.out.println("Pour une Carte Pokemon, tapez 3");
-	int typeSouhaite;
-	Scanner sc=new Scanner(System.in);
+
 	do{
 	    System.out.println("Vous devez entrer un 1, un 2 ou un 3");
 	    typeSouhaite=sc.nextInt();
 	}while(typeSouhaite <1 && typeSouhaite >3);
 
 	if(typeSouhaite==1){
-	    CarteDresseur c=new CarteDresseur();
+	    CarteDresseur c=new CarteDresseur("Dresseur");
 	    ajouterCarte(c);
-	    ecritureFichier(c);
+	    //ecritureFichier(c);
 	}else{
 	    if(typeSouhaite==2){
-		CarteEnergie c=new CarteEnergie();
+		CarteEnergie c=new CarteEnergie("Energie");
 		ajouterCarte(c);
-		ecritureFichier(c);	    
+		//ecritureFichier(c);	    
 	    }else{
-		CartePokemon c=new CartePokemon();
+		CartePokemon c=new CartePokemon("Pokemon");
 		ajouterCarte(c);
-		ecritureFichier(c);
+		//ecritureFichier(c);
 	    }
 	}
     }
 	
 
-    //melande du deck
+    //melange du deck : une fois le deck rempli, il faut melanger les cartes de maniere a ce que la "pioche" se fasse au hasard
+    //entree : rien
+    //sortie : rien
     public void melange(){
 	Carte tmp=new Carte("");
 	int r;
@@ -161,153 +178,123 @@ public class Deck implements Serializable{
 	    
     }
 
-    //modifcation d'une carte
-    public void modifierCarte(int i){
-	if(getCarte(i).getTypeCarte()=="Dresseur"){
-	    CarteDresseur c=new CarteDresseur();
-	    d.set(i,c);
-	}else{
-	    if(getCarte(i).getTypeCarte()=="Energie"){
-		CarteEnergie c=new CarteEnergie();
+    //modifcation d'une carte : on remplace la carte d'indice i par une nouvelle carte qu'on cree de maniere interactive 
+    //donc, en choisissant de nouvelles valeurs pour les attributs
+    //dans cette methode, on peut changer la valeur d'un des attributs mais pas le type de carte
+    //entree : un int nc representant le numero de carte dans le deck
+    //sortie : deck avec carte modifiee
+    public void modifierCarte(int nc){
+	int i=0;
+	//on cherche l'indice de la carte correspondant au numero de carte dans le deck passe en parametre
+	while(nc!=getCarte(i).getNumeroCarteDeck() || i<d.size()){
+	    i++;
+	}
+	if(i==d.size()){
+	    System.out.println("La carte de numero "+nc+" n'est pas presente dans le deck");
+	}else{	
+	    if(getCarte(i).getTypeCarte()=="Dresseur"){
+		CarteDresseur c=new CarteDresseur("Dresseur");
 		d.set(i,c);
 	    }else{
-		CartePokemon c=new CartePokemon();
-		d.set(i,c);
-	    }
+		if(getCarte(i).getTypeCarte()=="Energie"){
+		    CarteEnergie c=new CarteEnergie("Energie");
+		    d.set(i,c);
+		}else{
+		    CartePokemon c=new CartePokemon("Pokemon");
+		    d.set(i,c);
+		}
+	    }       
 	}
-        
     }
 
+    
     //vidage du deck
+    //entree : rien
+    //sortie : rien
     public void viderDeck(){
 	int nbElem=taille();
 	while(nbElem!=0){
-	    retirerCarte(nbElem-1);
+	    d.remove(nbElem-1);
 	    nbElem--;
 	}
+	cpt=0;
+	System.out.println("deck vide");
     }
 
-    //ecriture dans le fichier
-    public void ecritureFichier(Carte c){	    	   
+  
+    //ecriture dans le fichier : sauvegarde du deck dans un fichier dont on saisit le nom au clavier
+    //entree : Deck deck
+    //sortie : fichier avec le deck rempli
+    public void sauvegardeFichier(Deck deck){
+	String nf;
+	System.out.println("Entrez le nom de fichier de sauvegarde");
+	nf=sc.nextLine();
 	try {
-	    // sérialisation : écriture de l'objet dans le flux de sortie
-	    oos.writeObject(c); 
-	    // on vide le tampon
-	    oos.flush();
-	    System.out.println(c + " a ete serialise");
-	} catch(IOException ioe) {
+	    // serialisation : ecriture de l'objet dans le flux de sortie
+	    FileOutputStream f=new FileOutputStream(nf);
+	    ObjectOutputStream oos= new ObjectOutputStream(f);
+	    try{
+		for(int i=0;i<deck.taille();i++){
+		    oos.writeObject(deck.getCarte(i)); 
+		    // on vide le tampon
+		    oos.flush();	    
+		    //System.out.println(deck.getCarte(i) + " a ete serialise");
+		}
+	    }finally{
+		try{
+		    oos.close();
+		}finally{
+		    f.close();
+		}
+	    }
+	}
+	catch(IOException ioe) {
 	    ioe.printStackTrace();		  
 	} 
     }
 
-    //fermeture du fichier
-    public void fermetureFichier(){
-	try {
-	    oos.close();	    
-	}catch(IOException e){
-	    e.printStackTrace();
-	}
-	finally {
-	    try{
-		fos.close();
-	    }catch(IOException e){
-		e.printStackTrace();
-	    }
-	}
-    }
-
-    //lecture du fichier
-    public void lectureFichier(){
+    //restauration du fichier : restaure le contenu du fichier dont le nom est saisi au clavier dans un deck vide passe en parametre
+    //entree : Deck
+    //sortie : Deck avec le contenu du fichier dont 
+    public void restaureFichier(Deck deck){	
+        String nf;
 	Carte c;
 	boolean eof = false;
-
+	
+	deck.viderDeck();
+	System.out.println("Entrez le nom de fichier a restaurer");
+	nf=sc.nextLine();
 	try{
-	    ObjectInputStream ois = new ObjectInputStream(new FileInputStream(nomFichier));
+	    FileInputStream f=new FileInputStream(nf);
+	    ObjectInputStream ois= new ObjectInputStream(f);
 	    while(!eof){
 		try{
-		    c=(Carte) ois.readObject();      
-		    System.out.println(c);				  
-		}catch(EOFException e){
+		    c=(Carte) ois.readObject();
+		    deck.ajouterCarte(c);		    
+	        }catch(ClassNotFoundException e){
 		    eof=true;
-		}catch(ClassNotFoundException e){
+
+		}catch(IOException e){
 		    eof=true;
-		}		   
-	    }
+		}
+	    }	    	    
 	}catch(FileNotFoundException e){
+	    eof=true;
+	}catch(EOFException e){
 	    eof=true;
 	}catch(IOException e){
 	    eof=true;
 	}
     }
 
-
-    public void sauvegarderRestaurer(){
-	Talent t1=new Talent(" "," ");
-	Attaque a1_1=new Attaque("Coud Phalange","Psy",0,30,2," ");
-	Attaque a1_2=new Attaque("Electro Frappe","Psy",2,90,1," ");
-	CartePokemon c1=new CartePokemon("Pokemon","Electrique","XY Rupture Turbo JCC","43/122","Elekable","Il place le bout de ses deux queues sur son ennemi et libère une décharge de 20 000 V",1,"Elektek",110,"Combat","Combat x 2"," "," ",3,t1);
-	c1.ajouterAttaque(a1_1);
-	c1.ajouterAttaque(a1_2);
-	ajouterCarte(c1);
-	Talent t2=new Talent("Barricade Bide","Tant que ce Pokemon est votre Pokemon Actif, chaque Pokemon en jeu dans la defausse de chaque joueur ne possede pas de Capacites.");
-	Attaque a2_1=new Attaque("Choc Mental","Psy",1,20,2,"Lancez une piece. Si c’est face, le Pokemon actif de votre adversaire est maintenant Paralyse.");
-	Attaque a2_2=new Attaque("Lame Zen","Psy",2,100,2,"Ce Pokémon ne peut pas utiliser Lame Zen pendant votre prochain tour.");
-	CartePokemon c2=new CartePokemon("Pokemon","Psy","Promo JCC","XY101","Mewtwo","Un Pokemon concu en reorganisant les genes de Mew. On raconte qu’il s’agit du Pokemon le plus feroce.",0," ",120,"Psy","Psy x 2"," "," ",2,t2);
-	c2.ajouterAttaque(a2_1);
-	c2.ajouterAttaque(a2_2);
-	ajouterCarte(c2);
-       	Talent t3=new Talent(" "," ");
-	Attaque a3=new Attaque("Assaut psychique","Psy",1,10,1,"Cette attaque inflige 10 degats supplementaires pour chaque marqueur des Pokemon actifs de votre adversaire.");
-	CartePokemon c3=new CartePokemon("Pokemon","Psy","XY Vigueur Spectrale","36/119","Wobbuffet","Il déteste la lumière et le choc. Si attaque, il gonfle son corps pour construire sa contre-attaque",0," ",110,"Psy","Psy x 2"," "," ",2,t3);
-	c3.ajouterAttaque(a3);
-	ajouterCarte(c3);
-	Talent t4=new Talent(" "," ");
-	Attaque a4_1=new Attaque("Morsure","Psy",0,20,1,"Crocs Eclair");
-	Attaque a4_2=new Attaque("Crocs Eclair","Psy",1,30,1,"Lancez une pièce. Si c’est face, le Pokémon actif de votre adversaire est maintenant Paralysé");
-	CartePokemon c4=new CartePokemon("Pokemon","Electrique","XY Rupture Turbo JCC","45/122","Luxio","Le courant qui circule a la pointe de ses griffes est capable de faire perdre connaissance a ses proies.",1,"Lixy",80,"Combat","Combat x 2","Metal","Metal – 20",1,t4);
-	c4.ajouterAttaque(a4_1);
-	c4.ajouterAttaque(a4_2);
-	ajouterCarte(c4);
-	Talent t5=new Talent("Rune protectrice","Prevenez tous les effets d'attaques, dégats inclus, infligés à Qulbutoke par les Pokémon-ex de votre adversaire");
-	Attaque a5=new Attaque("Faire ressort","Psy",1,50,2,"Qulbutoké s’inflige 10 dégats. Vous ne pouvez pas appliquer la Faiblesse et la Resistance à ces degats");
-	CartePokemon c5=new CartePokemon("Pokemon","Psy","EX Gardiens du Pouvoir JCC","24/108","Qulbutoke"," ",0," ",80,"Psy","Psy x1"," "," ",2,t5);
-	c5.ajouterAttaque(a5);
-	ajouterCarte(c5);
-
-	System.out.println("Deck rempli : ");
-	System.out.println(d);
-	
-	//sauvegarde du deck dans un fichier
-	for(int i=0;i<taille();i++){
-	    ecritureFichier(getCarte(i));
-	}
-
-	//vidage du deck
-	viderDeck();
-      
-	//affichage du deck vide
-	System.out.println();
-	System.out.println("Deck vide : ");
-	System.out.println(d);
-
-	//restauration du deck
-	System.out.println();
-	System.out.println("Lecture fichier : ");
-	lectureFichier();
-
-	
-    }
-
-    public String getNomFichier(){
-	return nomFichier;
-    }
-
+ 
     public String toString(){
 	String s="";
 
-	for(int i=0;i<d.size();i++){
-	    s=s+d.get(i)+"\n";
+	for(int i=0;i<d.size()-1;i++){
+	    s=s+d.get(i)+"\n\n";
 	}
+	s=s+d.get(d.size()-1);
 	return s;
     }
     

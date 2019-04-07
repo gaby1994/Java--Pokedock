@@ -19,15 +19,16 @@ public class Attaque implements Serializable{
 	this.nbEnergies=sc.nextInt();
 	System.out.println("Entrez le nombre de degats de l'attaque : ");
 	this.nbDegatsAttaque=sc.nextInt();
-        System.out.println("Entrez le nombre de cartes Incolore : ");
+	System.out.println("Entrez le nombre de cartes Incolore : ");
 	this.nbIncolore=sc.nextInt();
 	sc.nextLine();
 	System.out.println("Entrez la description de l'attaque : ");
 	this.descriptionAttaque=sc.nextLine();
 	
     }
-
-    public Attaque(String na,String da,String ta,int nbE,int nbD,int nbI){
+    
+    //classe testee dans une classe de test
+    public Attaque(String na,String ta,int nbE,int nbD,int nbI,String da){
 	this.nomAttaque=na;
 	this.descriptionAttaque=da;
 	this.typeAttaque=ta;
@@ -42,14 +43,6 @@ public class Attaque implements Serializable{
 
     public void setNomAttaque(String na){
         this.nomAttaque=na;
-    }
-
-    public String getDescriptionAttaque(){
-	return descriptionAttaque;
-    }
-
-    public void setDescriptionAttaque(String da){
-        this.descriptionAttaque=da;
     }
 
     public String getTypeAttaque(){
@@ -68,14 +61,6 @@ public class Attaque implements Serializable{
         this.nbEnergies=nbE;
     }
 
-    public int getNbIncolore(){
-	return nbIncolore;
-    }
-
-    public void setNbIncolore(int nbI){
-        this.nbIncolore=nbI;
-    }
-
     public int getNbDegatsAttaque(){
 	return nbDegatsAttaque;
     }
@@ -84,12 +69,28 @@ public class Attaque implements Serializable{
         this.nbDegatsAttaque=nbD;
     }
 
+    public int getNbIncolore(){
+	return nbIncolore;
+    }
+
+    public void setNbIncolore(int nbI){
+        this.nbIncolore=nbI;
+    }
+
+    public String getDescriptionAttaque(){
+	return descriptionAttaque;
+    }
+
+    public void setDescriptionAttaque(String da){
+        this.descriptionAttaque=da;
+    }
+
     public String toString(){
-	return "[nom Attaque : "+nomAttaque+" | "+
-	    "descriptionAttaque : "+descriptionAttaque+" | "+
-	    "type Attaque : "+typeAttaque+" | "+
-	    "nombre d'energies : "+nbEnergies+" | "+
-	    "nombre Incolore : "+nbIncolore+" | "+
-	    "nombre de degats : "+nbDegatsAttaque+"]";
+	return "[nom Attaque : "+nomAttaque+"\n"+
+	    "        descriptionAttaque : "+descriptionAttaque+"\n"+
+	    "        type Attaque : "+typeAttaque+"\n"+
+	    "        nombre d'energies : "+nbEnergies+"\n"+
+	    "        nombre Incolore : "+nbIncolore+"\n"+
+	    "        nombre de degats : "+nbDegatsAttaque+"]";
     }
 }
